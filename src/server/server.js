@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 // Configure middleware
-const bodyParser = require(body-parser);
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
@@ -16,5 +16,5 @@ app.use(express.static('../client'));
 
 // Start server
 const server = app.listen(8000, () => {
-    console.log('Server started at localhost:3000');
+    console.log('Server started at localhost:8000');
 })
