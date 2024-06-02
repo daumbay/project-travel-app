@@ -22,11 +22,12 @@ function handleSubmit(event) {
     event.preventDefault();
     const location_geonames = document.querySelector('input[type="text"]').value;
     let url = '';
+    let object = {};
     getCredentialsForGeonames()
     .then(key => {
         url = `http://api.geonames.org/postalCodeSearchJSON?placename=${location_geonames}&maxRows=10&username=${key.apiKey_Geonames}`;
     }).then(() => {
-        callGeonames(url).then(data => data.json()).then(resp => console.log(resp));
+        callGeonames(url).then(data => data.json()).then(resp => object = resp.postalCodes[0]).then(() => console.log(object.lat, object.lng));
     });
 }
 
