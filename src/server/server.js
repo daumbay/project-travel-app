@@ -1,6 +1,10 @@
 // Configure path
 const path = require('path');
 
+// Configure dotenv
+const dotenv = require('dotenv');
+dotenv.config();
+
 // Configure express app
 const express = require('express');
 const app = express();
@@ -15,7 +19,7 @@ const cors = require('cors');
 app.use(cors());
 
 // Initialise main project folder
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '../../dist')));
 
 // Start server
 const server = app.listen(8000, () => {
@@ -24,5 +28,10 @@ const server = app.listen(8000, () => {
 
 // Configure GET routes
 app.get('/', (req, res) => {
-    res.sendFile('views/index.html', {root: path.join(__dirname, '../client')});
+    res.sendFile('./index.html', {root: path.join(__dirname, '../../dist')});
+});
+
+const apiKey_Geonames = process.env.API_KEY_GEONAMES
+app.get('/apiKey_Geonames', (req, res) => {
+    res.send({apiKey_Geonames});
 });
