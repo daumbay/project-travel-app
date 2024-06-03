@@ -39,4 +39,9 @@ app.get('/apiKey_Geonames', (req, res) => {
 const apiKey_Weatherbit = process.env.API_KEY_WEATHERBIT;
 app.get('/apiKey_Weatherbit', (req, res) => {
     res.send({apiKey_Weatherbit});
-})
+});
+
+const apiKey_Pixabay = process.env.API_KEY_PIXABAY;
+app.get('/apiKey_Pixabay', (req, res) => {
+    res.send({apiKey_Pixabay});
+});

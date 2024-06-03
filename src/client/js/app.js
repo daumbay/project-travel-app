@@ -18,6 +18,16 @@ async function getCredentialsForWeatherbit() {
     }
 }
 
+async function getCredentialsForPixabay() {
+    const response = await fetch('/apiKey_Pixabay');
+    try {
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function callGeonames(url) {
     const response = await fetch(url);
     try {
@@ -29,6 +39,16 @@ async function callGeonames(url) {
 }
 
 async function callWeatherbit(url) {
+    const response = await fetch(url);
+    try {
+        const data = await response;
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function callPixabay(url) {
     const response = await fetch(url);
     try {
         const data = await response;
@@ -105,6 +125,20 @@ function handleSubmit(event) {
             });
         })
     });
+
+    // Build the URL to call Pixabay API and store the response in an object
+    let url_Pixabay = '';
+    let object_Pixabay = {};
+    getCredentialsForPixabay()
+    .then((key) => {
+        url_Pixabay = `https://pixabay.com/api/?key=${key.apiKey_Pixabay}&q=${location_geonames}&image_type=photo&category=places&orientation=horizontal`;
+        url_Pixabay = encodeURI(url_Pixabay);
+    }).then(() => {
+        callPixabay(url_Pixabay)
+        .then(data => data.json())
+        .then(resp => object_Pixabay = resp.hits[0])
+        .then(() => console.log(object_Pixabay));
+    })
 }
 
 export {getCredentialsForGeonames, callGeonames, handleSubmit};
