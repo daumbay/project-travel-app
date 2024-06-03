@@ -83,7 +83,7 @@ function handleSubmit(event) {
                 .then(resp => object_Weatherbit = resp.data[countdown])
                 .then(() => console.log(object_Weatherbit))
                 .then(() => {
-                    document.querySelector('p').innerText = `Weather: ${object_Weatherbit.weather.description}`;
+                    document.querySelector('p').innerText = `Weather on ${object_Weatherbit.valid_date}: ${object_Weatherbit.weather.description}`;
                 });
             });
         });
