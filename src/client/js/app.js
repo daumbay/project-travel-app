@@ -61,7 +61,8 @@ function handleSubmit(event) {
     // Get countdown days to start of trip
     const countdown = getCountdown();
 
-    // Build the url to call Geonames API and store the response in an object
+    // Build the url to call Geonames API and store the response in the Geonames object
+    // Build the url to call Weatherbit API and store the response in the Weatherbit object
     let url_Geonames = '';
     let url_Weatherbit = '';
     let object_Geonames = {};
@@ -80,12 +81,15 @@ function handleSubmit(event) {
             }).then(() => {
                 callWebsite(url_Weatherbit)
                 .then(resp => object_Weatherbit = resp.data[countdown])
-                .then(() => console.log(object_Weatherbit));
+                .then(() => console.log(object_Weatherbit))
+                .then(() => {
+                    document.querySelector('p').innerText = `Weather: ${object_Weatherbit.weather.description}`;
+                });
             });
-        })
+        });
     });
 
-    // Build the URL to call Pixabay API and store the response in an object
+    // Build the URL to call Pixabay API and store the response in the Pixabay object
     let url_Pixabay = '';
     let object_Pixabay = {};
     getCredentials('Pixabay')
@@ -95,7 +99,10 @@ function handleSubmit(event) {
     }).then(() => {
         callWebsite(url_Pixabay)
         .then(resp => object_Pixabay = resp.hits[0])
-        .then(() => console.log(object_Pixabay));
+        .then(() => console.log(object_Pixabay))
+        .then(() => {
+            document.querySelector('img').src = object_Pixabay.largeImageURL;
+        });
     })
 }
 
