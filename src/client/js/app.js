@@ -1,57 +1,18 @@
-async function getCredentialsForGeonames() {
-    const response = await fetch('/apiKey_Geonames');
+async function getCredentials(website) {
+    const api = '/apiKey_' + website;
+    const response = await fetch(api);
     try {
-        const data = await response.json();
+        const data = response.json();
         return data;
     } catch (error) {
         console.log(error);
     }
 }
 
-async function getCredentialsForWeatherbit() {
-    const response = await fetch('/apiKey_Weatherbit');
-    try {
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-async function getCredentialsForPixabay() {
-    const response = await fetch('/apiKey_Pixabay');
-    try {
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-async function callGeonames(url) {
+async function callWebsite(url) {
     const response = await fetch(url);
     try {
-        const data = await response;
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-async function callWeatherbit(url) {
-    const response = await fetch(url);
-    try {
-        const data = await response;
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-async function callPixabay(url) {
-    const response = await fetch(url);
-    try {
-        const data = await response;
+        const data = response.json();
         return data;
     } catch (error) {
         console.log(error);
@@ -105,21 +66,19 @@ function handleSubmit(event) {
     let url_Weatherbit = '';
     let object_Geonames = {};
     let object_Weatherbit = {};
-    getCredentialsForGeonames()
+    getCredentials('Geonames')
     .then(key => {
         url_Geonames = `http://api.geonames.org/postalCodeSearchJSON?placename=${location_geonames}&maxRows=10&username=${key.apiKey_Geonames}`;
     }).then(() => {
-        callGeonames(url_Geonames)
-        .then(data => data.json())
+        callWebsite(url_Geonames)
         .then(resp => object_Geonames = resp.postalCodes[0])
         .then(() => console.log(object_Geonames.lat, object_Geonames.lng))
         .then(() => {
-            getCredentialsForWeatherbit()
+            getCredentials('Weatherbit')
             .then(key => {
                 url_Weatherbit = `http://api.weatherbit.io/v2.0/forecast/daily?lat=${object_Geonames.lat}&lon=${object_Geonames.lng}&key=${key.apiKey_Weatherbit}`;
             }).then(() => {
-                callWeatherbit(url_Weatherbit)
-                .then(data => data.json())
+                callWebsite(url_Weatherbit)
                 .then(resp => object_Weatherbit = resp.data[countdown])
                 .then(() => console.log(object_Weatherbit));
             });
@@ -129,16 +88,15 @@ function handleSubmit(event) {
     // Build the URL to call Pixabay API and store the response in an object
     let url_Pixabay = '';
     let object_Pixabay = {};
-    getCredentialsForPixabay()
+    getCredentials('Pixabay')
     .then((key) => {
         url_Pixabay = `https://pixabay.com/api/?key=${key.apiKey_Pixabay}&q=${location_geonames}&image_type=photo&category=places&orientation=horizontal`;
         url_Pixabay = encodeURI(url_Pixabay);
     }).then(() => {
-        callPixabay(url_Pixabay)
-        .then(data => data.json())
+        callWebsite(url_Pixabay)
         .then(resp => object_Pixabay = resp.hits[0])
         .then(() => console.log(object_Pixabay));
     })
 }
 
-export {getCredentialsForGeonames, callGeonames, handleSubmit};
+export {getCredentials, callWebsite, handleSubmit};
