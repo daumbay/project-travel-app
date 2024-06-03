@@ -8,7 +8,27 @@ async function getCredentialsForGeonames() {
     }
 }
 
+async function getCredentialsForWeatherbit() {
+    const response = await fetch('/apiKey_Weatherbit');
+    try {
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function callGeonames(url) {
+    const response = await fetch(url);
+    try {
+        const data = await response;
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function callWeatherbit(url) {
     const response = await fetch(url);
     try {
         const data = await response;
@@ -39,10 +59,16 @@ function getCountdown() {
     const countdown = Math.ceil((tripDate_ms - todayDate_ms) / oneday_ms);
 
     // Alert for trip date in the past
-    if (countdown < 0)
+    if (countdown < 0) {
         alert('Trip date in the past');
-    else
+        return 0;
+    }
+    else if (countdown > 6) {
+        alert('Trip too far into the future');
+        return 6;
+    } else {
         return Math.abs(countdown);
+    }
 }
 
 function handleSubmit(event) {
@@ -51,20 +77,34 @@ function handleSubmit(event) {
     // Get the location name from the text field
     const location_geonames = document.querySelector('input[type="text"]').value;
     
-    // Build the url to call Geonames API and store the response in an object
-    let url = '';
-    let object = {};
-    // getCredentialsForGeonames()
-    // .then(key => {
-    //     url = `http://api.geonames.org/postalCodeSearchJSON?placename=${location_geonames}&maxRows=10&username=${key.apiKey_Geonames}`;
-    // }).then(() => {
-    //     callGeonames(url)
-    //     .then(data => data.json())
-    //     .then(resp => object = resp.postalCodes[0])
-    //     .then(() => console.log(object.lat, object.lng));
-    // });
-
+    // Get countdown days to start of trip
     const countdown = getCountdown();
+
+    // Build the url to call Geonames API and store the response in an object
+    let url_Geonames = '';
+    let url_Weatherbit = '';
+    let object_Geonames = {};
+    let object_Weatherbit = {};
+    getCredentialsForGeonames()
+    .then(key => {
+        url_Geonames = `http://api.geonames.org/postalCodeSearchJSON?placename=${location_geonames}&maxRows=10&username=${key.apiKey_Geonames}`;
+    }).then(() => {
+        callGeonames(url_Geonames)
+        .then(data => data.json())
+        .then(resp => object_Geonames = resp.postalCodes[0])
+        .then(() => console.log(object_Geonames.lat, object_Geonames.lng))
+        .then(() => {
+            getCredentialsForWeatherbit()
+            .then(key => {
+                url_Weatherbit = `http://api.weatherbit.io/v2.0/forecast/daily?lat=${object_Geonames.lat}&lon=${object_Geonames.lng}&key=${key.apiKey_Weatherbit}`;
+            }).then(() => {
+                callWeatherbit(url_Weatherbit)
+                .then(data => data.json())
+                .then(resp => object_Weatherbit = resp.data[countdown])
+                .then(() => console.log(object_Weatherbit));
+            });
+        })
+    });
 }
 
 export {getCredentialsForGeonames, callGeonames, handleSubmit};
