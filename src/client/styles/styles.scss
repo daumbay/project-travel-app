@@ -7,6 +7,11 @@ main {
     margin: 0 auto;
 }
 
+article {
+    width: 80%;
+    margin: 0 auto;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -16,6 +21,12 @@ label, input {
     margin-top: 1vh;
 }
 
-img {
+img.location {
     width: 100%;
+    max-width: 420px;
+    border-radius: 6px;
+}
+
+img.weather {
+    width: 50px;
 }

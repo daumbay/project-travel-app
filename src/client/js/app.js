@@ -83,7 +83,10 @@ function handleSubmit(event) {
                 .then(resp => object_Weatherbit = resp.data[countdown])
                 .then(() => console.log(object_Weatherbit))
                 .then(() => {
-                    document.querySelector('p').innerText = `${countdown} days left for the trip.\nWeather on ${object_Weatherbit.valid_date}: ${object_Weatherbit.weather.description}`;
+                    // Add a weather icon
+                    document.querySelector('img.weather').src = `https://cdn.weatherbit.io/static/img/icons/${object_Weatherbit.weather.icon}.png`;
+                    document.querySelector('p.countdown').innerHTML = `${countdown} day(s) left for the trip`;
+                    document.querySelector('p.weather').innerHTML = `Weather on ${object_Weatherbit.valid_date}: ${object_Weatherbit.weather.description}`
                 });
             });
         });
@@ -102,9 +105,10 @@ function handleSubmit(event) {
         .then(() => console.log(object_Pixabay))
         .then(() => {
             if (object_Pixabay !== undefined)
-                document.querySelector('img').src = object_Pixabay.largeImageURL;
-            else
-                document.querySelector('img').src = 'https://picsum.photos/1280/720';
+                document.querySelector('img.location').src = object_Pixabay.largeImageURL;
+            else {
+                document.querySelector('img.location').src = 'https://picsum.photos/1280/720';
+            }
         });
     })
 }

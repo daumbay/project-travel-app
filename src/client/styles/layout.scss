@@ -1,0 +1,46 @@
+article {
+    display: grid;
+    grid-template-areas: 
+    'image image'
+    'icon countdown'
+    'icon weather';
+    gap: 5%;
+}
+
+img.location {
+    grid-area: image;
+}
+
+img.weather {
+    grid-area: icon;
+}
+
+p.countdown {
+    grid-area: countdown;
+}
+
+p.weather {
+    grid-area: weather;
+}
+
+@media (min-width: 420px) {
+    body {
+        display: grid;
+        gap: 30px;
+        grid-template-areas: 
+        'header header'
+        'main article';
+    }
+
+    header {
+        grid-area: header;
+    }
+    
+    main {
+        grid-area: main;
+    }
+
+    article {
+        grid-area: article;
+    }
+}
