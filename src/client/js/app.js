@@ -87,10 +87,10 @@ function handleSubmit(event) {
                     document.querySelector('img.weather').src = `https://cdn.weatherbit.io/static/img/icons/${object_Weatherbit.weather.icon}.png`;
                     document.querySelector('p.countdown').innerHTML = `${countdown} day(s) left for the trip`;
                     document.querySelector('p.weather').innerHTML = `Weather on ${object_Weatherbit.valid_date}: ${object_Weatherbit.weather.description}`
-                });
-            });
-        });
-    });
+                }).catch(error => console.log(error));
+            }).catch(error => console.log(error));
+        }).catch(error => console.log(error));
+    }).catch(error => console.log(error));
 
     // Build the URL to call Pixabay API and store the response in the Pixabay object
     let url_Pixabay = '';
@@ -106,11 +106,10 @@ function handleSubmit(event) {
         .then(() => {
             if (object_Pixabay !== undefined)
                 document.querySelector('img.location').src = object_Pixabay.largeImageURL;
-            else {
+            else
                 document.querySelector('img.location').src = 'https://picsum.photos/1280/720';
-            }
-        });
-    })
+        }).catch(error => console.log(error));
+    }).catch(error => console.log(error));
 }
 
 export {getCredentials, callWebsite, handleSubmit};
