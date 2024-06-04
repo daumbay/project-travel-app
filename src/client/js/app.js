@@ -41,11 +41,11 @@ function getCountdown() {
 
     // Alert for trip date in the past
     if (countdown < 0) {
-        alert('Trip date in the past');
+        alert('Trip date in the past. Assuming trip today.');
         return 0;
     }
     else if (countdown > 6) {
-        alert('Trip too far into the future');
+        alert('Trip too far into the future. Assuming trip 7 days from today.');
         return 6;
     } else {
         return Math.abs(countdown);
@@ -83,7 +83,7 @@ function handleSubmit(event) {
                 .then(resp => object_Weatherbit = resp.data[countdown])
                 .then(() => console.log(object_Weatherbit))
                 .then(() => {
-                    document.querySelector('p').innerText = `Weather on ${object_Weatherbit.valid_date}: ${object_Weatherbit.weather.description}`;
+                    document.querySelector('p').innerText = `${countdown} days left for the trip.\nWeather on ${object_Weatherbit.valid_date}: ${object_Weatherbit.weather.description}`;
                 });
             });
         });
@@ -101,7 +101,10 @@ function handleSubmit(event) {
         .then(resp => object_Pixabay = resp.hits[0])
         .then(() => console.log(object_Pixabay))
         .then(() => {
-            document.querySelector('img').src = object_Pixabay.largeImageURL;
+            if (object_Pixabay !== undefined)
+                document.querySelector('img').src = object_Pixabay.largeImageURL;
+            else
+                document.querySelector('img').src = 'https://picsum.photos/1280/720';
         });
     })
 }
