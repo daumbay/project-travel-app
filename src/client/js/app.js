@@ -56,7 +56,7 @@ function handleSubmit(event) {
     event.preventDefault();
 
     // Get the location name from the text field
-    const location_geonames = document.querySelector('input[type="text"]').value;
+    const location_geonames = document.querySelector('input.location').value;
     
     // Get countdown days to start of trip
     const countdown = getCountdown();

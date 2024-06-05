@@ -4,7 +4,10 @@ body {
 
 main {
     width: 80%;
+    max-width: 240px;
     margin: 0 auto;
+    padding: 5%;
+    background-color: aquamarine;
 }
 
 article {
@@ -15,10 +18,11 @@ article {
 form {
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 label, input {
-    margin-top: 1vh;
+    margin-top: 5vh;
 }
 
 img.location {
