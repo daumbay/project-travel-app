@@ -73,7 +73,6 @@ function handleSubmit(event) {
     }).then(() => {
         callWebsite(url_Geonames)
         .then(resp => object_Geonames = resp.postalCodes[0])
-        .then(() => console.log(object_Geonames.lat, object_Geonames.lng))
         .then(() => {
             getCredentials('Weatherbit')
             .then(key => {
@@ -81,7 +80,6 @@ function handleSubmit(event) {
             }).then(() => {
                 callWebsite(url_Weatherbit)
                 .then(resp => object_Weatherbit = resp.data[countdown])
-                .then(() => console.log(object_Weatherbit))
                 .then(() => {
                     // Add a weather icon
                     document.querySelector('img.weather').src = `https://cdn.weatherbit.io/static/img/icons/${object_Weatherbit.weather.icon}.png`;
@@ -102,7 +100,6 @@ function handleSubmit(event) {
     }).then(() => {
         callWebsite(url_Pixabay)
         .then(resp => object_Pixabay = resp.hits[0])
-        .then(() => console.log(object_Pixabay))
         .then(() => {
             if (object_Pixabay !== undefined)
                 document.querySelector('img.location').src = object_Pixabay.largeImageURL;
