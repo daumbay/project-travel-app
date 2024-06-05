@@ -1,8 +1,12 @@
-import {getCredentials, callWebsite, handleSubmit} from './js/app';
+import {getCredentials, callWebsite, getCountdown, handleSubmit} from './js/app';
 
 document.querySelector('form').addEventListener('submit', handleSubmit);
 
-export {getCredentials, callWebsite, handleSubmit};
+function handleClick(event) {
+    console.log("I'm clicked!", event.target);
+} 
+
+export {getCredentials, callWebsite, getCountdown, handleSubmit, handleClick};
 
 import './styles/styles.scss';
 import './styles/layout.scss';

@@ -1,3 +1,6 @@
+import { handleClick } from "../../client/index";
+document.querySelector('input[type="submit"]').addEventListener('click', handleClick);
+
 async function getCredentials(website) {
     const api = '/apiKey_' + website;
     const response = await fetch(api);
@@ -109,4 +112,4 @@ function handleSubmit(event) {
     }).catch(error => console.log(error));
 }
 
-export {getCredentials, callWebsite, handleSubmit};
+export {getCredentials, callWebsite, getCountdown, handleSubmit};
