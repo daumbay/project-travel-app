@@ -1,19 +1,11 @@
 import { handleClick } from "../../client/index";
+import { callWebsite } from "./callWebsite";
+
 document.querySelector('input[type="submit"]').addEventListener('click', handleClick);
 
 async function getCredentials(website) {
     const api = '/apiKey_' + website;
     const response = await fetch(api);
-    try {
-        const data = response.json();
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-async function callWebsite(url) {
-    const response = await fetch(url);
     try {
         const data = response.json();
         return data;

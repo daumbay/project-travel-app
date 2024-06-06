@@ -1,6 +1,12 @@
-import {} from '../src/server/server';
+import { getKey_Geonames } from '../src/server/api';
 
-test('Testing variable validity', () => {
-    const apiKey_Geonames = process.env.API_KEY_GEONAMES;
-    expect (apiKey_Geonames).toBeDefined();
+const req = {};
+const res = {
+    send: jest.fn((x) => x),
+};
+const apiKey_Geonames = 'dummy';
+
+it('should return an api key for Geonames', () => {
+    getKey_Geonames(req, res);
+    expect(res.send).toHaveBeenCalledTimes(1);
 });

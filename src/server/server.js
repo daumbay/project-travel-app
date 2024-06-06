@@ -1,3 +1,6 @@
+// Import required api functions
+import { getKey_Geonames } from './api';
+
 // Configure path
 const path = require('path');
 
@@ -31,10 +34,7 @@ app.get('/', (req, res) => {
     res.sendFile('./index.html', {root: path.join(__dirname, '../../dist')});
 });
 
-const apiKey_Geonames = process.env.API_KEY_GEONAMES;
-app.get('/apiKey_Geonames', (req, res) => {
-    res.send({apiKey_Geonames});
-});
+app.get('/apiKey_Geonames', getKey_Geonames);
 
 const apiKey_Weatherbit = process.env.API_KEY_WEATHERBIT;
 app.get('/apiKey_Weatherbit', (req, res) => {
