@@ -1,9 +1,9 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
+import path from 'path';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import WorkboxPlugin from 'workbox-webpack-plugin';
 
-module.exports = {
+export default {
     entry: './src/client/index.js',
     mode: 'production',
     module: {

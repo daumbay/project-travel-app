@@ -1,4 +1,5 @@
-import {getCredentials, callWebsite, getCountdown, handleSubmit} from './js/app';
+import {getCredentials, getCountdown, handleSubmit} from './js/app.js';
+import { callWebsite } from './js/callWebsite.js';
 
 document.querySelector('form').addEventListener('submit', handleSubmit);
 

@@ -1,5 +1,5 @@
-import { handleClick } from "../../client/index";
-import { callWebsite } from "./callWebsite";
+import { handleClick } from "../../client/index.js";
+import { callWebsite } from "./callWebsite.js";
 
 document.querySelector('input[type="submit"]').addEventListener('click', handleClick);
 

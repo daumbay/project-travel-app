@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Project provides weather data for a location on a particular date",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "start": "node ./src/server/server.js",
