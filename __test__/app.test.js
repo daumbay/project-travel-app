@@ -1,8 +1,13 @@
 import { callWebsite } from "../src/client/js/callWebsite";
 
-const url = 'https://api.github.com/users/hadley/orgs';
+beforeEach(() => {
+    fetch.resetMocks();
+});
 
 it('Check variable validity', async () => {
-    const response = await callWebsite(url);
-    expect(response).toBeDefined();
+    fetch.mockResponseOnce(JSON.stringify({data: "mockData"}));
+    const url = 'google';
+    callWebsite(url).then(res => {
+        expect(res.data).toEqual('mockData');
+    })
 });

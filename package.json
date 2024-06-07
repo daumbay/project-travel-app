@@ -4,6 +4,12 @@
   "description": "Project provides weather data for a location on a particular date",
   "main": "server.js",
   "type": "module",
+  "jest": {
+    "automock": false,
+    "setupFiles": [
+      "./setupJest.js"
+    ]
+  },
   "scripts": {
     "test": "jest",
     "start": "node ./src/server/server.js",
@@ -28,6 +34,7 @@
     "html-webpack-plugin": "^5.6.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
     "sass": "^1.77.4",
     "sass-loader": "^14.2.1",
     "style-loader": "^4.0.0",
